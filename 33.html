@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Roadmap Pengembangan Sistem</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: #F8F9FA;
+    }
+    .slide-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #FFFFFF;
+        font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    
+    /* Header */
+    .header {
+        padding: 50px 80px 30px 80px;
+        display: flex;
+        align-items: flex-start;
+        position: relative;
+        z-index: 10;
+    }
+    .accent-bar {
+        width: 6px;
+        background-color: #42A5F5;
+        margin-right: 25px;
+        height: 80px;
+        align-self: flex-start;
+        border-radius: 3px;
+    }
+    .title-group {
+        display: flex;
+        flex-direction: column;
+    }
+    .title-en {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-size: 20px;
+        color: #4DB6AC;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+    .title-cn {
+        font-size: 48px;
+        font-weight: 900;
+        color: #212121;
+        line-height: 1.1;
+    }
+    
+    /* Future Badge */
+    .future-badge {
+        position: absolute;
+        top: 60px;
+        right: 80px;
+        background: linear-gradient(135deg, #42A5F5 0%, #1976D2 100%);
+        color: #FFFFFF;
+        padding: 12px 28px;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 20;
+    }
+    
+    /* Content */
+    .content {
+        flex: 1;
+        padding: 20px 80px 60px 80px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        z-index: 10;
+        gap: 20px;
+    }
+    
+    /* Phases Grid */
+    .phases-grid {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+    
+    .phase-card {
+        background-color: #FFFFFF;
+        border-radius: 16px;
+        padding: 30px 25px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .phase-number {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        width: 40px;
+        height: 40px;
+        background-color: #42A5F5;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FFFFFF;
+        font-size: 18px;
+        font-weight: 700;
+        box-shadow: 0 4px 10px rgba(66, 165, 245, 0.3);
+    }
+    
+    .phase-1 .phase-number { background-color: #42A5F5; }
+    .phase-2 .phase-number { background-color: #5C6BC0; }
+    .phase-3 .phase-number { background-color: #7E57C2; }
+    
+    .phase-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        font-size: 28px;
+    }
+    
+    .phase-1 .phase-icon { background-color: #E3F2FD; color: #42A5F5; }
+    .phase-2 .phase-icon { background-color: #E8EAF6; color: #5C6BC0; }
+    .phase-3 .phase-icon { background-color: #EDE7F6; color: #7E57C2; }
+    
+    .phase-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 15px;
+    }
+    
+    .phase-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 15px;
+    }
+    
+    .phase-features {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .feature-item {
+        font-size: 13px;
+        color: #757575;
+        background-color: #F8F9FA;
+        padding: 8px 12px;
+        border-radius: 6px;
+        text-align: center;
+    }
+    
+    /* Timeline Arrow */
+    .timeline-arrow {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-top: 30px;
+        padding: 0 40px;
+    }
+    
+    .arrow {
+        width: 40px;
+        height: 40px;
+        background-color: #42A5F5;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FFFFFF;
+        font-size: 18px;
+    }
+    
+    .arrow-line {
+        flex: 1;
+        height: 2px;
+        background: linear-gradient(90deg, #42A5F5, #5C6BC0);
+    }
+    
+    /* Decor */
+    .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 0;
+    }
+    
+    .circle-1 {
+        width: 300px;
+        height: 300px;
+        background-color: #E3F2FD;
+        top: -100px;
+        right: -50px;
+        opacity: 0.4;
+    }
+    
+    .circle-2 {
+        width: 200px;
+        height: 200px;
+        background-color: #E0F2F1;
+        bottom: 50px;
+        left: 60px;
+        opacity: 0.3;
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <!-- Decor -->
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+    
+    <!-- Header -->
+    <div class="header">
+        <div class="accent-bar"></div>
+        <div class="title-group">
+            <p class="title-en">DEVELOPMENT ROADMAP</p>
+            <h1 class="title-cn">Saran Pengembangan Ke Depan</h1>
+        </div>
+        <div class="future-badge">
+            <i class="fas fa-rocket"></i>
+            <span>Future Ready</span>
+        </div>
+    </div>
+    
+    <!-- Content -->
+    <div class="content">
+        <div class="phases-grid">
+            <!-- Phase 1 -->
+            <div class="phase-card phase-1">
+                <div class="phase-number">1</div>
+                <div class="phase-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 class="phase-title">Mobile App</h3>
+                <div class="phase-features">
+                    <div class="feature-item">Native Android/iOS</div>
+                    <div class="feature-item">Push Notifications</div>
+                    <div class="feature-item">Offline Mode</div>
+                </div>
+            </div>
+            
+            <!-- Phase 2 -->
+            <div class="phase-card phase-2">
+                <div class="phase-number">2</div>
+                <div class="phase-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="phase-title">Advanced AI</h3>
+                <div class="phase-features">
+                    <div class="feature-item">AI Inventory Prediction</div>
+                    <div class="feature-item">Barcode Scanner</div>
+                    <div class="feature-item">Auto Reorder Alerts</div>
+                </div>
+            </div>
+            
+            <!-- Phase 3 -->
+            <div class="phase-card phase-3">
+                <div class="phase-number">3</div>
+                <div class="phase-icon">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <h3 class="phase-title">Integration</h3>
+                <div class="phase-features">
+                    <div class="feature-item">Sistem Manajemen Aset</div>
+                    <div class="feature-item">API untuk Eksternal</div>
+                    <div class="feature-item">Reporting ke ERP</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

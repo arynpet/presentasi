@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hari 1: Pengamanan Data & Orientasi Sistem</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: #F8F9FA;
+    }
+    .slide-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #FFFFFF;
+        font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+        overflow: hidden;
+        display: flex;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    
+    /* Left Section */
+    .left-section {
+        width: 50%;
+        height: 100%;
+        background-color: #FFFFFF;
+        padding: 60px 50px 60px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .title-container {
+        display: flex;
+        margin-bottom: 30px;
+    }
+    
+    .accent-bar {
+        width: 6px;
+        background-color: #42A5F5;
+        margin-right: 25px;
+        height: 80px;
+        align-self: flex-start;
+        border-radius: 3px;
+    }
+    
+    .title-group {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .title-en {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-size: 18px;
+        color: #4DB6AC;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+    
+    .title-cn {
+        font-size: 46px;
+        font-weight: 900;
+        color: #212121;
+        line-height: 1.1;
+    }
+    
+    .day-badge {
+        background-color: #E3F2FD;
+        color: #1976D2;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+    
+    .task-list {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+    
+    .task-item {
+        display: flex;
+        align-items: flex-start;
+    }
+    
+    .task-icon-box {
+        min-width: 36px;
+        height: 36px;
+        background-color: #E3F2FD;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        margin-top: 2px;
+    }
+    
+    .task-icon {
+        color: #42A5F5;
+        font-size: 16px;
+    }
+    
+    .task-content h4 {
+        font-size: 17px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 3px;
+    }
+    
+    .task-content p {
+        font-size: 13px;
+        color: #757575;
+        line-height: 1.4;
+    }
+    
+    /* Right Section */
+    .right-section {
+        width: 50%;
+        height: 100%;
+        background-color: #F0F7FF;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px 80px 60px 60px;
+        position: relative;
+    }
+    
+    .benefit-section {
+        background-color: #FFFFFF;
+        border-radius: 16px;
+        padding: 30px;
+        margin-bottom: 25px;
+        box-shadow: 0 8px 20px rgba(66, 165, 245, 0.1);
+    }
+    
+    .section-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .section-title i {
+        color: #4DB6AC;
+        font-size: 22px;
+    }
+    
+    .benefit-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .benefit-item {
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        color: #546E7A;
+        padding: 10px 14px;
+        background-color: #F8F9FA;
+        border-radius: 8px;
+        border-left: 4px solid #4DB6AC;
+    }
+    
+    .benefit-item i {
+        color: #4DB6AC;
+        margin-right: 12px;
+        font-size: 14px;
+    }
+    
+    .stat-box {
+        background: linear-gradient(135deg, #42A5F5 0%, #1976D2 100%);
+        border-radius: 16px;
+        padding: 25px 30px;
+        color: #FFFFFF;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .stat-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.3;
+    }
+    
+    .stat-title {
+        font-size: 14px;
+        font-weight: 500;
+        opacity: 0.9;
+        margin-bottom: 8px;
+    }
+    
+    .stat-value {
+        font-size: 42px;
+        font-weight: 900;
+        margin-bottom: 5px;
+        line-height: 1;
+    }
+    
+    .stat-unit {
+        font-size: 16px;
+        font-weight: 600;
+        opacity: 0.85;
+    }
+    
+    .stat-label {
+        font-size: 13px;
+        opacity: 0.85;
+        margin-top: 8px;
+    }
+    
+    /* Timeline */
+    .timeline-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 25px;
+        padding: 15px 20px;
+        background-color: rgba(66, 165, 245, 0.08);
+        border-radius: 10px;
+    }
+    
+    .timeline-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        flex: 1;
+    }
+    
+    .timeline-icon {
+        width: 48px;
+        height: 48px;
+        background-color: #42A5F5;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 8px;
+        color: #FFFFFF;
+        font-size: 20px;
+        box-shadow: 0 4px 10px rgba(66, 165, 245, 0.3);
+    }
+    
+    .timeline-text {
+        font-size: 12px;
+        font-weight: 600;
+        color: #424242;
+    }
+    
+    .timeline-arrow {
+        color: #BDBDBD;
+        font-size: 20px;
+    }
+    
+    .logo-container {
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 20;
+    }
+    .logo-icon {
+        color: #42A5F5;
+        font-size: 16px;
+    }
+    .logo-text {
+        font-size: 12px;
+        font-weight: 700;
+        color: #9E9E9E;
+        letter-spacing: 1px;
+    }
+    
+    /* Decor */
+    .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 0;
+    }
+    
+    .circle-1 {
+        width: 300px;
+        height: 300px;
+        background-color: #E3F2FD;
+        top: -50px;
+        right: -50px;
+        opacity: 0.6;
+    }
+    
+    .circle-2 {
+        width: 150px;
+        height: 150px;
+        border: 20px solid #E0F2F1;
+        bottom: 50px;
+        left: 60px;
+        opacity: 0.4;
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <!-- Left Section -->
+    <div class="left-section">
+        
+        <div class="title-container">
+            <div class="accent-bar"></div>
+            <div class="title-group">
+                <h1 class="title-cn">Pengamanan Data<br/>& Orientasi Sistem</h1>
+            </div>
+        </div>
+        
+        <div class="task-list">
+            <!-- Task 1 -->
+            <div class="task-item">
+                <div class="task-icon-box">
+                    <i class="fas fa-comments task-icon"></i>
+                </div>
+                <div class="task-content">
+                    <h4>Briefing Sistem</h4>
+                    <p>Memahami alur kerja & fitur dari rekan PKL sebelumnya</p>
+                </div>
+            </div>
+            
+            <!-- Task 2 -->
+            <div class="task-item">
+                <div class="task-icon-box">
+                    <i class="fas fa-download task-icon"></i>
+                </div>
+                <div class="task-content">
+                    <h4>Transfer Project</h4>
+                    <p>Menerima file lengkap & struktur folder sistem</p>
+                </div>
+            </div>
+            
+            <!-- Task 3 -->
+            <div class="task-item">
+                <div class="task-icon-box">
+                    <i class="fab fa-github task-icon"></i>
+                </div>
+                <div class="task-content">
+                    <h4>Push ke GitHub</h4>
+                    <p>Upload kode & backup permanen untuk version control</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline-container">
+            <div class="timeline-step">
+                <div class="timeline-icon">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <div class="timeline-text">File Project</div>
+            </div>
+            <i class="fas fa-arrow-right timeline-arrow"></i>
+            <div class="timeline-step">
+                <div class="timeline-icon">
+                    <i class="fas fa-upload"></i>
+                </div>
+                <div class="timeline-text">Git Push</div>
+            </div>
+            <i class="fas fa-arrow-right timeline-arrow"></i>
+            <div class="timeline-step">
+                <div class="timeline-icon">
+                    <i class="fab fa-github-alt"></i>
+                </div>
+                <div class="timeline-text">Repository</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        
+        <div class="benefit-section">
+            <h2 class="section-title">
+                <i class="fas fa-check-circle"></i>
+                Mengapa Penting?
+            </h2>
+            <div class="benefit-list">
+                <div class="benefit-item">
+                    <i class="fas fa-code-branch"></i>
+                    <span>Version control: Track Changes untuk kode</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-history"></i>
+                    <span>History lengkap: Siapa, kapan, apa yang diubah</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-users"></i>
+                    <span>Kolaborasi aman tanpa bentrok kode</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stat-box">
+            <div class="stat-title">Progress Commits</div>
+            <div style="display: flex; align-items: baseline; gap: 8px;">
+                <div class="stat-value">0</div>
+                <div style="font-size: 24px; opacity: 0.7;">→</div>
+                <div class="stat-value">50+</div>
+                <div class="stat-unit">commits</div>
+            </div>
+            <div class="stat-label">dalam 2 minggu</div>
+        </div>
+        
+        <div class="logo-container">
+            <i class="fas fa-flask logo-icon"></i>
+            <span class="logo-text">STEI ITB</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

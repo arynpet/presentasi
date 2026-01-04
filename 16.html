@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Penutupan 7 Celah Keamanan</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: #F8F9FA;
+    }
+    .slide-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #FFFFFF;
+        font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+        overflow: hidden;
+        display: flex;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    
+    /* Left Section */
+    .left-section {
+        width: 50%;
+        height: 100%;
+        background-color: #FFFFFF;
+        padding: 60px 50px 60px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .title-container {
+        display: flex;
+        margin-bottom: 30px;
+    }
+    
+    .accent-bar {
+        width: 6px;
+        background-color: #42A5F5;
+        margin-right: 25px;
+        height: 80px;
+        align-self: flex-start;
+        border-radius: 3px;
+    }
+    
+    .title-group {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .title-en {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-size: 18px;
+        color: #4DB6AC;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+    
+    .title-cn {
+        font-size: 46px;
+        font-weight: 900;
+        color: #212121;
+        line-height: 1.1;
+    }
+    
+    .vulnerability-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+    
+    .vulnerability-item {
+        display: flex;
+        align-items: center;
+        background-color: #F8F9FA;
+        border-radius: 10px;
+        padding: 12px 16px;
+        border-left: 4px solid #42A5F5;
+    }
+    
+    .lock-icon {
+        color: #42A5F5;
+        font-size: 18px;
+        margin-right: 12px;
+    }
+    
+    .vuln-text {
+        flex: 1;
+        font-size: 14px;
+        font-weight: 600;
+        color: #424242;
+    }
+    
+    .fixed-badge {
+        background-color: #E8F5E9;
+        color: #4CAF50;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+    
+    /* Right Section */
+    .right-section {
+        width: 50%;
+        height: 100%;
+        background-color: #F0F7FF;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px 80px 60px 60px;
+        position: relative;
+    }
+    
+    .importance-box {
+        background-color: #FFFFFF;
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(66, 165, 245, 0.1);
+        margin-bottom: 25px;
+    }
+    
+    .importance-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .importance-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .importance-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .importance-icon {
+        color: #EF5350;
+        font-size: 18px;
+        margin-top: 2px;
+    }
+    
+    .importance-text {
+        flex: 1;
+        font-size: 14px;
+        color: #616161;
+        line-height: 1.5;
+    }
+    
+    .impact-box {
+        background: linear-gradient(135deg, #42A5F5 0%, #1976D2 100%);
+        border-radius: 16px;
+        padding: 20px;
+        color: #FFFFFF;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .impact-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.3;
+    }
+    
+    .impact-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .impact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    
+    .impact-item {
+        background-color: rgba(255,255,255,0.15);
+        border-radius: 8px;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+    }
+    
+    .logo-container {
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 20;
+    }
+    .logo-icon {
+        color: #42A5F5;
+        font-size: 16px;
+    }
+    .logo-text {
+        font-size: 12px;
+        font-weight: 700;
+        color: #9E9E9E;
+        letter-spacing: 1px;
+    }
+    
+    /* Decor */
+    .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 0;
+    }
+    
+    .circle-1 {
+        width: 300px;
+        height: 300px;
+        background-color: #E3F2FD;
+        top: -50px;
+        right: -50px;
+        opacity: 0.6;
+    }
+    
+    .circle-2 {
+        width: 150px;
+        height: 150px;
+        border: 20px solid #E0F2F1;
+        bottom: 50px;
+        left: 60px;
+        opacity: 0.4;
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <!-- Left Section -->
+    <div class="left-section">
+        <div class="title-container">
+            <div class="accent-bar"></div>
+            <div class="title-group">
+                <p class="title-en">SECURITY FIXES</p>
+                <h1 class="title-cn">Penutupan 7<br/>Celah Keamanan</h1>
+            </div>
+        </div>
+        
+        <div class="vulnerability-list">
+            <div class="vulnerability-item">
+                <i class="fas fa-lock lock-icon"></i>
+                <div class="vuln-text">Mass Assignment Vulnerability</div>
+                <div class="fixed-badge">FIXED</div>
+            </div>
+            
+            <div class="vulnerability-item">
+                <i class="fas fa-lock lock-icon"></i>
+                <div class="vuln-text">Race Condition</div>
+                <div class="fixed-badge">FIXED</div>
+            </div>
+            
+            <div class="vulnerability-item">
+                <i class="fas fa-lock lock-icon"></i>
+                <div class="vuln-text">Authorization Bypass</div>
+                <div class="fixed-badge">FIXED</div>
+            </div>
+            
+            <div class="vulnerability-item">
+                <i class="fas fa-lock lock-icon"></i>
+                <div class="vuln-text">SQL Injection Risk</div>
+                <div class="fixed-badge">FIXED</div>
+            </div>
+            
+            <div class="vulnerability-item">
+                <i class="fas fa-lock lock-icon"></i>
+                <div class="vuln-text">CSRF Token Missing</div>
+                <div class="fixed-badge">FIXED</div>
+            </div>
+            
+            <div class="vulnerability-item">
+                <i class="fas fa-lock lock-icon"></i>
+                <div class="vuln-text">File Upload Validation</div>
+                <div class="fixed-badge">FIXED</div>
+            </div>
+            
+            <div class="vulnerability-item">
+                <i class="fas fa-lock lock-icon"></i>
+                <div class="vuln-text">Weak Session Management</div>
+                <div class="fixed-badge">FIXED</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        
+        <!-- Importance -->
+        <div class="importance-box">
+            <h2 class="importance-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                Mengapa Penting?
+            </h2>
+            <div class="importance-list">
+                <div class="importance-item">
+                    <i class="fas fa-user-secret importance-icon"></i>
+                    <div class="importance-text">Celah keamanan = pintu masuk hacker</div>
+                </div>
+                <div class="importance-item">
+                    <i class="fas fa-database importance-icon"></i>
+                    <div class="importance-text">Data lab bisa dimanipulasi atau dihapus</div>
+                </div>
+                <div class="importance-item">
+                    <i class="fas fa-university importance-icon"></i>
+                    <div class="importance-text">Reputasi institusi terancam</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Impact -->
+        <div class="impact-box">
+            <h2 class="impact-title">
+                <i class="fas fa-shield-alt"></i>
+                Dampak Positif
+            </h2>
+            <div class="impact-grid">
+                <div class="impact-item">
+                    <i class="fas fa-certificate"></i>
+                    <span>Standar industri</span>
+                </div>
+                <div class="impact-item">
+                    <i class="fas fa-lock"></i>
+                    <span>Data terlindungi</span>
+                </div>
+                <div class="impact-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Laravel security</span>
+                </div>
+                <div class="impact-item">
+                    <i class="fas fa-shield-virus"></i>
+                    <span>OWASP Compliant</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logo-container">
+            <i class="fas fa-flask logo-icon"></i>
+            <span class="logo-text">STEI ITB</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

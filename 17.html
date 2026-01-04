@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sistem Soft Delete & Undo Action</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: #F8F9FA;
+    }
+    .slide-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #FFFFFF;
+        font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+        overflow: hidden;
+        display: flex;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    
+    /* Left Section */
+    .left-section {
+        width: 50%;
+        height: 100%;
+        background-color: #FFFFFF;
+        padding: 60px 50px 60px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .title-container {
+        display: flex;
+        margin-bottom: 30px;
+    }
+    
+    .accent-bar {
+        width: 6px;
+        background-color: #42A5F5;
+        margin-right: 25px;
+        height: 80px;
+        align-self: flex-start;
+        border-radius: 3px;
+    }
+    
+    .title-group {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .title-en {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-size: 18px;
+        color: #4DB6AC;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+    
+    .title-cn {
+        font-size: 46px;
+        font-weight: 900;
+        color: #212121;
+        line-height: 1.1;
+    }
+    
+    .feature-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .feature-item {
+        display: flex;
+        align-items: flex-start;
+    }
+    
+    .feature-icon-box {
+        min-width: 40px;
+        height: 40px;
+        background-color: #E3F2FD;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        margin-top: 2px;
+    }
+    
+    .feature-icon {
+        color: #42A5F5;
+        font-size: 18px;
+    }
+    
+    .feature-content h4 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 4px;
+    }
+    
+    .feature-content p {
+        font-size: 14px;
+        color: #757575;
+        line-height: 1.5;
+    }
+    
+    /* Right Section */
+    .right-section {
+        width: 50%;
+        height: 100%;
+        background-color: #F0F7FF;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px 80px 60px 60px;
+        position: relative;
+    }
+    
+    .flow-container {
+        background-color: #FFFFFF;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(66, 165, 245, 0.1);
+        margin-bottom: 25px;
+    }
+    
+    .flow-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .flow-steps {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+    }
+    
+    .flow-step {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .step-box {
+        background-color: #F5F5F5;
+        border-radius: 12px;
+        padding: 15px;
+        border: 2px solid #E0E0E0;
+        position: relative;
+    }
+    
+    .step-icon {
+        font-size: 28px;
+        color: #757575;
+        margin-bottom: 8px;
+    }
+    
+    .step-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #546E7A;
+        line-height: 1.3;
+    }
+    
+    .step-arrow {
+        color: #BDBDBD;
+        font-size: 24px;
+    }
+    
+    /* Undo Notification */
+    .undo-box {
+        background: linear-gradient(135deg, #42A5F5 0%, #1976D2 100%);
+        border-radius: 16px;
+        padding: 20px;
+        color: #FFFFFF;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .undo-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.3;
+    }
+    
+    .undo-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+    
+    .undo-icon {
+        font-size: 28px;
+    }
+    
+    .undo-title {
+        font-size: 16px;
+        font-weight: 700;
+    }
+    
+    .undo-message {
+        background-color: rgba(255,255,255,0.15);
+        border-radius: 8px;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .undo-text {
+        flex: 1;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+    
+    .undo-button {
+        background-color: #FFFFFF;
+        color: #42A5F5;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 20px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    
+    .logo-container {
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 20;
+    }
+    .logo-icon {
+        color: #42A5F5;
+        font-size: 16px;
+    }
+    .logo-text {
+        font-size: 12px;
+        font-weight: 700;
+        color: #9E9E9E;
+        letter-spacing: 1px;
+    }
+    
+    /* Decor */
+    .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 0;
+    }
+    
+    .circle-1 {
+        width: 300px;
+        height: 300px;
+        background-color: #E3F2FD;
+        top: -50px;
+        right: -50px;
+        opacity: 0.6;
+    }
+    
+    .circle-2 {
+        width: 150px;
+        height: 150px;
+        border: 20px solid #E0F2F1;
+        bottom: 50px;
+        left: 60px;
+        opacity: 0.4;
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <!-- Left Section -->
+    <div class="left-section">
+        <div class="title-container">
+            <div class="accent-bar"></div>
+            <div class="title-group">
+                <p class="title-en">BACKUP & RECOVERY</p>
+                <h1 class="title-cn">Sistem Soft Delete<br/>& Undo Action</h1>
+            </div>
+        </div>
+        
+        <div class="feature-list">
+            <!-- Feature 1 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-archive feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Soft Delete</h4>
+                    <p>Data tidak benar-benar terhapus, hanya di-"hide"</p>
+                </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-undo feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Undo Action</h4>
+                    <p>Restore data yang baru dihapus dalam 1 session</p>
+                </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-cloud-upload-alt feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Auto Backup</h4>
+                    <p>Backup otomatis setiap perubahan critical</p>
+                </div>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-history feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Audit Trail</h4>
+                    <p>Butuh jejak siapa hapus apa dan kapan</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        
+        <!-- Flow Diagram -->
+        <div class="flow-container">
+            <h2 class="flow-title">
+                <i class="fas fa-project-diagram"></i>
+                Alur Soft Delete
+            </h2>
+            <div class="flow-steps">
+                <!-- Step 1 -->
+                <div class="flow-step">
+                    <div class="step-box">
+                        <div class="step-icon">
+                            <i class="fas fa-trash-alt"></i>
+                        </div>
+                        <div class="step-label">User hapus<br/>barang</div>
+                    </div>
+                </div>
+                
+                <i class="fas fa-arrow-right step-arrow"></i>
+                
+                <!-- Step 2 -->
+                <div class="flow-step">
+                    <div class="step-box" style="border-color: #42A5F5; background-color: #E3F2FD;">
+                        <div class="step-icon" style="color: #42A5F5;">
+                            <i class="fas fa-archive"></i>
+                        </div>
+                        <div class="step-label">Soft delete<br/>(arsip)</div>
+                    </div>
+                </div>
+                
+                <i class="fas fa-arrow-right step-arrow"></i>
+                
+                <!-- Step 3 -->
+                <div class="flow-step">
+                    <div class="step-box" style="border-color: #4CAF50; background-color: #E8F5E9;">
+                        <div class="step-icon" style="color: #4CAF50;">
+                            <i class="fas fa-undo"></i>
+                        </div>
+                        <div class="step-label">Restore jika<br/>dibutuhkan</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Undo Notification -->
+        <div class="undo-box">
+            <div class="undo-header">
+                <i class="fas fa-undo undo-icon"></i>
+                <div class="undo-title">Fitur Undo Aktif</div>
+            </div>
+            <div class="undo-message">
+                <div class="undo-text">
+                    <strong>Arduino Uno</strong> telah dihapus<br/>
+                    <span style="opacity: 0.8;">30 detik lalu</span>
+                </div>
+                <button class="undo-button">
+                    <i class="fas fa-undo"></i>
+                    <span>Undo</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="logo-container">
+            <i class="fas fa-flask logo-icon"></i>
+            <span class="logo-text">STEI ITB</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

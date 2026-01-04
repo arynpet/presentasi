@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hari 2: Turun ke Lapangan - Pendataan Ulang Alat Lab</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: #F8F9FA;
+    }
+    .slide-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #FFFFFF;
+        font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+        overflow: hidden;
+        display: flex;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    
+    /* Left Section */
+    .left-section {
+        width: 50%;
+        height: 100%;
+        background-color: #FFFFFF;
+        padding: 60px 50px 60px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .title-container {
+        display: flex;
+        margin-bottom: 30px;
+    }
+    
+    .accent-bar {
+        width: 6px;
+        background-color: #42A5F5;
+        margin-right: 25px;
+        height: 80px;
+        align-self: flex-start;
+        border-radius: 3px;
+    }
+    
+    .title-group {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .title-en {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-size: 18px;
+        color: #4DB6AC;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+    
+    .title-cn {
+        font-size: 44px;
+        font-weight: 900;
+        color: #212121;
+        line-height: 1.1;
+    }
+    
+    .day-badge {
+        background-color: #E3F2FD;
+        color: #1976D2;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+    
+    .task-list {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+    
+    .task-item {
+        display: flex;
+        align-items: flex-start;
+    }
+    
+    .task-icon-box {
+        min-width: 36px;
+        height: 36px;
+        background-color: #E3F2FD;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        margin-top: 2px;
+    }
+    
+    .task-icon {
+        color: #42A5F5;
+        font-size: 16px;
+    }
+    
+    .task-content h4 {
+        font-size: 17px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 3px;
+    }
+    
+    .task-content p {
+        font-size: 13px;
+        color: #757575;
+        line-height: 1.4;
+    }
+    
+    /* Right Section */
+    .right-section {
+        width: 50%;
+        height: 100%;
+        background-color: #F0F7FF;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px 80px 60px 60px;
+        position: relative;
+    }
+    
+    .flow-diagram {
+        background-color: #FFFFFF;
+        border-radius: 16px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 8px 20px rgba(66, 165, 245, 0.1);
+    }
+    
+    .flow-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .flow-title i {
+        color: #4DB6AC;
+        font-size: 20px;
+    }
+    
+    .flow-steps {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+    }
+    
+    .flow-step {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .flow-icon-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 10px;
+        font-size: 22px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    .step-old {
+        background-color: #FFEBEE;
+        color: #EF5350;
+    }
+    
+    .step-survey {
+        background-color: #FFF8E1;
+        color: #FFA726;
+    }
+    
+    .step-new {
+        background-color: #E8F5E9;
+        color: #4CAF50;
+    }
+    
+    .flow-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #546E7A;
+    }
+    
+    .flow-arrow {
+        color: #BDBDBD;
+        font-size: 18px;
+    }
+    
+    .impact-box {
+        background: linear-gradient(135deg, #42A5F5 0%, #1976D2 100%);
+        border-radius: 16px;
+        padding: 25px;
+        color: #FFFFFF;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .impact-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.3;
+    }
+    
+    .impact-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .impact-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .impact-item {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        background-color: rgba(255,255,255,0.15);
+        padding: 10px 14px;
+        border-radius: 8px;
+    }
+    
+    .impact-item i {
+        color: #4DB6AC;
+        margin-right: 10px;
+        font-size: 16px;
+    }
+    
+    .logo-container {
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 20;
+    }
+    .logo-icon {
+        color: #42A5F5;
+        font-size: 16px;
+    }
+    .logo-text {
+        font-size: 12px;
+        font-weight: 700;
+        color: #9E9E9E;
+        letter-spacing: 1px;
+    }
+    
+    /* Decor */
+    .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 0;
+    }
+    
+    .circle-1 {
+        width: 300px;
+        height: 300px;
+        background-color: #E3F2FD;
+        top: -50px;
+        right: -50px;
+        opacity: 0.6;
+    }
+    
+    .circle-2 {
+        width: 150px;
+        height: 150px;
+        border: 20px solid #E0F2F1;
+        bottom: 50px;
+        left: 60px;
+        opacity: 0.4;
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <!-- Left Section -->
+    <div class="left-section">
+        
+        <div class="title-container">
+            <div class="accent-bar"></div>
+            <div class="title-group">
+                <p class="title-en">FIELD SURVEY</p>
+                <h1 class="title-cn">Turun ke Lapangan<br/>Pendataan Ulang</h1>
+            </div>
+        </div>
+        
+        <div class="task-list">
+            <!-- Task 1 -->
+            <div class="task-item">
+                <div class="task-icon-box">
+                    <i class="fas fa-walking task-icon"></i>
+                </div>
+                <div class="task-content">
+                    <h4>Survey Fisik</h4>
+                    <p>Turun ke lab bersama tim untuk cek langsung</p>
+                </div>
+            </div>
+            
+            <!-- Task 2 -->
+            <div class="task-item">
+                <div class="task-icon-box">
+                    <i class="fas fa-clipboard-check task-icon"></i>
+                </div>
+                <div class="task-content">
+                    <h4>Verifikasi Data</h4>
+                    <p>Cek keberadaan, kondisi & lokasi barang aktual</p>
+                </div>
+            </div>
+            
+            <!-- Task 3 -->
+            <div class="task-item">
+                <div class="task-icon-box">
+                    <i class="fas fa-database task-icon"></i>
+                </div>
+                <div class="task-content">
+                    <h4>Cross-Check Sistem</h4>
+                    <p>Validasi dengan data di sistem lama</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        
+        <!-- Flow Diagram -->
+        <div class="flow-diagram">
+            <h2 class="flow-title">
+                <i class="fas fa-project-diagram"></i>
+                Proses Validasi Data
+            </h2>
+            <div class="flow-steps">
+                <div class="flow-step">
+                    <div class="flow-icon-circle step-old">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="flow-label">Database<br/>Lama</div>
+                </div>
+                <i class="fas fa-arrow-right flow-arrow"></i>
+                <div class="flow-step">
+                    <div class="flow-icon-circle step-survey">
+                        <i class="fas fa-search-location"></i>
+                    </div>
+                    <div class="flow-label">Survey<br/>Fisik</div>
+                </div>
+                <i class="fas fa-arrow-right flow-arrow"></i>
+                <div class="flow-step">
+                    <div class="flow-icon-circle step-new">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <div class="flow-label">Database<br/>Baru</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Impact Box -->
+        <div class="impact-box">
+            <h2 class="impact-title">
+                <i class="fas fa-check-circle"></i>
+                Dampak Positif
+            </h2>
+            <div class="impact-list">
+                <div class="impact-item">
+                    <i class="fas fa-percentage"></i>
+                    <span>100% Sinkron dengan kondisi real lab</span>
+                </div>
+                <div class="impact-item">
+                    <i class="fas fa-ghost"></i>
+                    <span>Tidak ada "data hantu" barang hilang</span>
+                </div>
+                <div class="impact-item">
+                    <i class="fas fa-handshake"></i>
+                    <span>Proses peminjaman lebih reliable</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logo-container">
+            <i class="fas fa-flask logo-icon"></i>
+            <span class="logo-text">STEI ITB</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

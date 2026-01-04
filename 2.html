@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Agenda Presentasi</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: #F8F9FA;
+    }
+    .slide-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #FFFFFF;
+        font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+        overflow: hidden;
+        display: flex;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    /* Left Panel */
+    .left-panel {
+        width: 380px;
+        height: 100%;
+        background-color: #F0F7FF; /* Light blue */
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 60px;
+        z-index: 10;
+    }
+    .toc-title-en {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-size: 24px;
+        color: #42A5F5;
+        letter-spacing: 4px;
+        margin-bottom: 10px;
+    }
+    .toc-title-id {
+        font-size: 64px;
+        font-weight: 900;
+        color: #212121;
+        line-height: 1;
+        margin-bottom: 30px;
+        position: relative;
+    }
+    .title-underline {
+        width: 60px;
+        height: 6px;
+        background-color: #4DB6AC;
+        border-radius: 3px;
+    }
+    
+    /* Right Panel */
+    .right-panel {
+        flex: 1;
+        height: 100%;
+        padding: 80px 60px 80px 80px;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+    .toc-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 60px;
+        row-gap: 35px;
+        width: 100%;
+    }
+    .toc-item {
+        display: flex;
+        align-items: flex-start;
+        position: relative;
+    }
+    .toc-number {
+        font-family: 'Roboto', sans-serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: #E3F2FD;
+        line-height: 1;
+        margin-right: 15px;
+        position: relative;
+        min-width: 45px;
+    }
+    .toc-number span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: #42A5F5;
+        z-index: 2;
+    }
+    .toc-number::after {
+        content: attr(data-num);
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        color: rgba(66, 165, 245, 0.1);
+        z-index: 1;
+        font-size: 28px;
+    }
+    .toc-text {
+        padding-top: 2px;
+    }
+    .toc-text h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 4px;
+        line-height: 1.2;
+    }
+    .toc-text p {
+        font-size: 13px;
+        color: #9E9E9E;
+        font-weight: 400;
+    }
+    
+    /* Decor */
+    .decorative-circle {
+        position: absolute;
+        border-radius: 50%;
+    }
+    .circle-1 {
+        width: 300px;
+        height: 300px;
+        background-color: #FFFFFF;
+        top: -100px;
+        left: -100px;
+        opacity: 0.5;
+    }
+    .circle-2 {
+        width: 150px;
+        height: 150px;
+        border: 20px solid #E0F2F1;
+        bottom: 50px;
+        left: -40px;
+        opacity: 0.6;
+    }
+    .wave-bg {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 400px;
+        height: 400px;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.05;
+    }
+    .logo-container {
+        position: absolute;
+        bottom: 40px;
+        left: 60px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 20;
+    }
+    .logo-icon {
+        color: #42A5F5;
+        font-size: 18px;
+    }
+    .logo-text {
+        font-size: 14px;
+        font-weight: 700;
+        color: #616161;
+        letter-spacing: 1px;
+    }
+    
+    /* Item Colors */
+    .toc-item:nth-child(1) .toc-number span,
+    .toc-item:nth-child(7) .toc-number span { color: #42A5F5; }
+    .toc-item:nth-child(2) .toc-number span,
+    .toc-item:nth-child(8) .toc-number span { color: #4DB6AC; }
+    .toc-item:nth-child(3) .toc-number span,
+    .toc-item:nth-child(9) .toc-number span { color: #5C6BC0; }
+    .toc-item:nth-child(4) .toc-number span,
+    .toc-item:nth-child(10) .toc-number span { color: #7E57C2; }
+    .toc-item:nth-child(5) .toc-number span,
+    .toc-item:nth-child(11) .toc-number span { color: #AB47BC; }
+    .toc-item:nth-child(6) .toc-number span { color: #26C6DA; }
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <!-- Left Panel -->
+    <div class="left-panel">
+        <div class="decorative-circle circle-1"></div>
+        <div class="decorative-circle circle-2"></div>
+        <p class="toc-title-en">CONTENTS</p>
+        <h1 class="toc-title-id">Agenda</h1>
+        <div class="title-underline"></div>
+        <div class="logo-container">
+            <i class="fas fa-flask logo-icon"></i>
+            <span class="logo-text">STEI ITB</span>
+        </div>
+    </div>
+    
+    <!-- Right Panel -->
+    <div class="right-panel">
+        <!-- Background decoration -->
+        <svg class="wave-bg" viewbox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,400 C150,400 200,250 400,200 L400,400 Z" fill="#42A5F5"></path>
+            <path d="M100,400 C200,400 250,300 400,280 L400,400 Z" fill="#4DB6AC" opacity="0.6"></path>
+        </svg>
+        
+        <div class="toc-grid">
+            <!-- Item 1 -->
+            <div class="toc-item">
+                <div class="toc-number" data-num="01"><span>01</span></div>
+                <div class="toc-text">
+                    <h3>Latar Belakang</h3>
+                    <p>Kondisi awal sistem & tantangan</p>
+                </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="toc-item">
+                <div class="toc-number" data-num="07"><span>07</span></div>
+                <div class="toc-text">
+                    <h3>Saran Pengembangan</h3>
+                    <p>Roadmap & rekomendasi ke depan</p>
+                </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="toc-item">
+                <div class="toc-number" data-num="02"><span>02</span></div>
+                <div class="toc-text">
+                    <h3>Minggu Pertama</h3>
+                    <p>Orientasi, backup & refactoring</p>
+                </div>
+            </div>
+            
+            <!-- Item 4 -->
+            <div class="toc-item">
+                <div class="toc-number" data-num="08"><span>08</span></div>
+                <div class="toc-text">
+                    <h3>Proses Kerja</h3>
+                    <p>Minggu kedua & optimasi</p>
+                </div>
+            </div>
+            
+            <!-- Item 5 -->
+            <div class="toc-item">
+                <div class="toc-number" data-num="03"><span>03</span></div>
+                <div class="toc-text">
+                    <h3>Fitur-Fitur Baru</h3>
+                    <p>QR code, stok & filtering</p>
+                </div>
+            </div>
+            
+            <!-- Item 6 -->
+            <div class="toc-item">
+                <div class="toc-number" data-num="09"><span>09</span></div>
+                <div class="toc-text">
+                    <h3>Keamanan & Testing</h3>
+                    <p>7 security fixes & 122 tests</p>
+                </div>
+            </div>
+            
+            <!-- Item 7 -->
+            <div class="toc-item">
+                <div class="toc-number" data-num="04"><span>04</span></div>
+                <div class="toc-text">
+                    <h3>Hasil Akhir</h3>
+                    <p>Dokumentasi & deliverables</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Validasi Input untuk Mencegah Data Rusak</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background-color: #F8F9FA;
+    }
+    .slide-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #FFFFFF;
+        font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+        overflow: hidden;
+        display: flex;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    
+    /* Left Section */
+    .left-section {
+        width: 50%;
+        height: 100%;
+        background-color: #FFFFFF;
+        padding: 4vh 4vw 4vh 5vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .title-container {
+        display: flex;
+        margin-bottom: 3vh;
+    }
+    
+    .accent-bar {
+        width: 6px;
+        background-color: #42A5F5;
+        margin-right: 1.5vw;
+        height: 10vh;
+        align-self: flex-start;
+        border-radius: 3px;
+    }
+    
+    .title-group {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .title-en {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-size: 1.5vh;
+        color: #4DB6AC;
+        letter-spacing: 2px;
+        margin-bottom: 0.5vh;
+    }
+    
+    .title-cn {
+        font-size: 4.5vh;
+        font-weight: 900;
+        color: #212121;
+        line-height: 1.1;
+    }
+    
+    .feature-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2vh;
+    }
+    
+    .feature-item {
+        display: flex;
+        align-items: flex-start;
+    }
+    
+    .feature-icon-box {
+        min-width: 3.5vw;
+        height: 3.5vw;
+        background-color: #E3F2FD;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1vw;
+        margin-top: 0.2vh;
+    }
+    
+    .feature-icon {
+        color: #42A5F5;
+        font-size: 1.8vw;
+    }
+    
+    .feature-content h4 {
+        font-size: 1.8vw;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 0.4vh;
+    }
+    
+    .feature-content p {
+        font-size: 1.3vw;
+        color: #757575;
+        line-height: 1.5;
+    }
+    
+    /* Right Section */
+    .right-section {
+        width: 50%;
+        height: 100%;
+        background-color: #F0F7FF;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 4vh 6vw 4vh 5vw;
+        position: relative;
+    }
+    
+    .validation-container {
+        background-color: #FFFFFF;
+        border-radius: 16px;
+        padding: 2.5vh;
+        box-shadow: 0 10px 30px rgba(66, 165, 245, 0.1);
+        margin-bottom: 3vh;
+    }
+    
+    .validation-title {
+        font-size: 1.8vw;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 2vh;
+        display: flex;
+        align-items: center;
+        gap: 1vw;
+    }
+    
+    .form-example {
+        background-color: #F8F9FA;
+        border-radius: 12px;
+        padding: 2vh;
+        margin-bottom: 2vh;
+    }
+    
+    .form-group {
+        margin-bottom: 1.5vh;
+    }
+    
+    .form-label {
+        font-size: 1.3vw;
+        font-weight: 600;
+        color: #546E7A;
+        margin-bottom: 0.6vh;
+    }
+    
+    .form-input {
+        width: 100%;
+        padding: 1vh 1.5vw;
+        border-radius: 8px;
+        border: 2px solid #E0E0E0;
+        font-size: 1.3vw;
+        background-color: #FFFFFF;
+    }
+    
+    .form-input.error {
+        border-color: #EF5350;
+        background-color: #FFEBEE;
+        color: #5D4037;
+    }
+    
+    .form-input.success {
+        border-color: #4CAF50;
+        background-color: #E8F5E9;
+        color: #2E7D32;
+    }
+    
+    .error-message {
+        font-size: 1.2vw;
+        color: #EF5350;
+        margin-top: 0.5vh;
+        display: flex;
+        align-items: center;
+        gap: 0.5vw;
+    }
+    
+    /* Checklist */
+    .checklist-box {
+        background: linear-gradient(135deg, #42A5F5 0%, #1976D2 100%);
+        border-radius: 16px;
+        padding: 2vh;
+        color: #FFFFFF;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .checklist-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.3;
+    }
+    
+    .checklist-title {
+        font-size: 1.6vw;
+        font-weight: 700;
+        margin-bottom: 1.5vh;
+        display: flex;
+        align-items: center;
+        gap: 0.8vw;
+    }
+    
+    .checklist-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5vw;
+    }
+    
+    .checklist-item {
+        background-color: rgba(255,255,255,0.15);
+        border-radius: 8px;
+        padding: 1vh 1.5vw;
+        display: flex;
+        align-items: center;
+        gap: 0.8vw;
+        font-size: 1.3vw;
+    }
+    
+    .logo-container {
+        position: absolute;
+        bottom: 3vh;
+        right: 4vw;
+        display: flex;
+        align-items: center;
+        gap: 1vw;
+        z-index: 20;
+    }
+    .logo-icon {
+        color: #42A5F5;
+        font-size: 1.5vw;
+    }
+    .logo-text {
+        font-size: 1.2vw;
+        font-weight: 700;
+        color: #9E9E9E;
+        letter-spacing: 1px;
+    }
+    
+    /* Decor */
+    .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 0;
+    }
+    
+    .circle-1 {
+        width: 30vw;
+        height: 30vw;
+        background-color: #E3F2FD;
+        top: -5vw;
+        right: -5vw;
+        opacity: 0.6;
+    }
+    
+    .circle-2 {
+        width: 15vw;
+        height: 15vw;
+        border: 20px solid #E0F2F1;
+        bottom: 5vh;
+        left: 6vw;
+        opacity: 0.4;
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <!-- Left Section -->
+    <div class="left-section">
+        <div class="title-container">
+            <div class="accent-bar"></div>
+            <div class="title-group">
+                <p class="title-en">DATA VALIDATION</p>
+                <h1 class="title-cn">Validasi Input<br/>untuk Mencegah<br/>Data Rusak</h1>
+            </div>
+        </div>
+        
+        <div class="feature-list">
+            <!-- Feature 1 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Validation Rules</h4>
+                    <p>Implementasi di frontend & backend</p>
+                </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-user-shield feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Sanitasi Input</h4>
+                    <p>Mencegah XSS attack & SQL injection</p>
+                </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-check-circle feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Format Validation</h4>
+                    <p>Validasi format nomor asset, email, tanggal</p>
+                </div>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-database feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Data Quality</h4>
+                    <p>Hanya data valid yang masuk database</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        
+        <!-- Form Validation Example -->
+        <div class="validation-container">
+            <h2 class="validation-title">
+                <i class="fas fa-clipboard-check"></i>
+                Contoh Validation
+            </h2>
+            <div class="form-example">
+                <div class="form-group">
+                    <div class="form-label">Nomor Asset</div>
+                    <input class="form-input error" placeholder="AST-00" type="text"/>
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Format salah (harus AST-XXX)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-label">Email</div>
+                    <input class="form-input error" placeholder="user@itb.ac.id" type="email"/>
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Email tidak valid
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-label">Nama Barang</div>
+                    <input class="form-input success" placeholder="Arduino Uno R3" type="text" value="Arduino Uno R3"/>
+                    <div class="error-message" style="color: #4CAF50;">
+                        <i class="fas fa-check-circle"></i>
+                        Data valid
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Checklist -->
+        <div class="checklist-box">
+            <h2 class="checklist-title">
+                <i class="fas fa-list-check"></i>
+                Validation Rules
+            </h2>
+            <div class="checklist-grid">
+                <div class="checklist-item">
+                    <i class="fas fa-asterisk"></i>
+                    <span>Required</span>
+                </div>
+                <div class="checklist-item">
+                    <i class="fas fa-font"></i>
+                    <span>Format</span>
+                </div>
+                <div class="checklist-item">
+                    <i class="fas fa-sort-numeric-down"></i>
+                    <span>Range</span>
+                </div>
+                <div class="checklist-item">
+                    <i class="fas fa-fingerprint"></i>
+                    <span>Unique</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logo-container">
+            <i class="fas fa-flask logo-icon"></i>
+            <span class="logo-text">STEI ITB</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

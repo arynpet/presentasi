@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Minggu 1: Refactoring & Penataan Ulang Kode</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: #F8F9FA;
+    }
+    .slide-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #FFFFFF;
+        font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+        overflow: hidden;
+        display: flex;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    
+    /* Left Panel - Content */
+    .left-panel {
+        width: 50%;
+        height: 100%;
+        background-color: #FFFFFF;
+        padding: 60px 50px 60px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .title-container {
+        display: flex;
+        margin-bottom: 30px;
+    }
+    
+    .accent-bar {
+        width: 6px;
+        background-color: #42A5F5;
+        margin-right: 25px;
+        height: 80px;
+        align-self: flex-start;
+        border-radius: 3px;
+    }
+    
+    .title-group {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .title-en {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-size: 18px;
+        color: #4DB6AC;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+    
+    .title-cn {
+        font-size: 46px;
+        font-weight: 900;
+        color: #212121;
+        line-height: 1.1;
+    }
+    
+    .week-badge {
+        background-color: #E3F2FD;
+        color: #1976D2;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+    
+    .task-list {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin-bottom: 25px;
+    }
+    
+    .task-item {
+        display: flex;
+        align-items: flex-start;
+    }
+    
+    .task-icon-box {
+        min-width: 36px;
+        height: 36px;
+        background-color: #E3F2FD;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        margin-top: 2px;
+    }
+    
+    .task-icon {
+        color: #42A5F5;
+        font-size: 16px;
+    }
+    
+    .task-content h4 {
+        font-size: 17px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 3px;
+    }
+    
+    .task-content p {
+        font-size: 13px;
+        color: #757575;
+        line-height: 1.4;
+    }
+    
+    .impact-box {
+        background: linear-gradient(135deg, #4DB6AC 0%, #26A69A 100%);
+        border-radius: 12px;
+        padding: 20px;
+        color: #FFFFFF;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .impact-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.3;
+    }
+    
+    .impact-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .impact-item {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        background-color: rgba(255,255,255,0.15);
+        padding: 8px 12px;
+        border-radius: 6px;
+        margin-bottom: 6px;
+    }
+    
+    .impact-item i {
+        margin-right: 10px;
+        font-size: 14px;
+    }
+    
+    /* Right Panel - Comparison */
+    .right-panel {
+        width: 50%;
+        height: 100%;
+        background-color: #F0F7FF;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px 80px 60px 60px;
+        position: relative;
+    }
+    
+    .comparison-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+    
+    .comparison-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 8px;
+    }
+    
+    .comparison-subtitle {
+        font-size: 13px;
+        color: #9E9E9E;
+    }
+    
+    .comparison-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .comparison-card {
+        background-color: #FFFFFF;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .card-before {
+        border-left: 4px solid #EF5350;
+    }
+    
+    .card-after {
+        border-left: 4px solid #4CAF50;
+    }
+    
+    .card-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #F5F5F5;
+    }
+    
+    .card-label {
+        font-size: 13px;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 12px;
+        margin-right: 12px;
+    }
+    
+    .label-before {
+        background-color: #FFEBEE;
+        color: #EF5350;
+    }
+    
+    .label-after {
+        background-color: #E8F5E9;
+        color: #4CAF50;
+    }
+    
+    .card-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #424242;
+    }
+    
+    .code-preview {
+        background-color: #F8F9FA;
+        border-radius: 8px;
+        padding: 12px;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        color: #546E7A;
+        line-height: 1.4;
+    }
+    
+    .arrow-down {
+        text-align: center;
+        color: #BDBDBD;
+        font-size: 20px;
+        margin: 10px 0;
+    }
+    
+    .logo-container {
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 20;
+    }
+    .logo-icon {
+        color: #42A5F5;
+        font-size: 16px;
+    }
+    .logo-text {
+        font-size: 12px;
+        font-weight: 700;
+        color: #9E9E9E;
+        letter-spacing: 1px;
+    }
+    
+    /* Decor */
+    .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 0;
+    }
+    
+    .circle-1 {
+        width: 300px;
+        height: 300px;
+        background-color: #E3F2FD;
+        top: -50px;
+        right: -50px;
+        opacity: 0.6;
+    }
+    
+    .circle-2 {
+        width: 150px;
+        height: 150px;
+        border: 20px solid #E0F2F1;
+        bottom: 50px;
+        left: 60px;
+        opacity: 0.4;
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <!-- Left Panel -->
+    <div class="left-panel">
+        
+        <div class="title-container">
+            <div class="accent-bar"></div>
+            <div class="title-group">
+                <p class="title-en">REFACTORING</p>
+                <h1 class="title-cn">Refactoring &<br/>Penataan Ulang Kode</h1>
+            </div>
+        </div>
+        
+        <div class="task-list">
+            <!-- Task 1 -->
+            <div class="task-item">
+                <div class="task-icon-box">
+                    <i class="fas fa-list task-icon"></i>
+                </div>
+                <div class="task-content">
+                    <h4>Status Barang</h4>
+                    <p>Merapikan cara sistem menampilkan status (tersedia/dipinjam/rusak)</p>
+                </div>
+            </div>
+            
+            <!-- Task 2 -->
+            <div class="task-item">
+                <div class="task-icon-box">
+                    <i class="fas fa-user-shield task-icon"></i>
+                </div>
+                <div class="task-content">
+                    <h4>Sistem Login</h4>
+                    <p>Menambahkan sistem login lebih aman dengan seeder admin</p>
+                </div>
+            </div>
+            
+            <!-- Task 3 -->
+            <div class="task-item">
+                <div class="task-icon-box">
+                    <i class="fas fa-broom task-icon"></i>
+                </div>
+                <div class="task-content">
+                    <h4>Cleanup Files</h4>
+                    <p>Membersihkan file-file tidak terpakai dan merapikan struktur</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="impact-box">
+            <h2 class="impact-title">
+                <i class="fas fa-chart-line"></i>
+                Dampak Positif
+            </h2>
+            <div class="impact-item">
+                <i class="fas fa-bolt"></i>
+                <span>Waktu debugging: 1 jam → 15 menit</span>
+            </div>
+            <div class="impact-item">
+                <i class="fas fa-users-cog"></i>
+                <span>Tim masa depan lebih mudah memahami</span>
+            </div>
+            <div class="impact-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Mengurangi potensi error sistem</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Right Panel - Comparison -->
+    <div class="right-panel">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        
+        <div class="comparison-header">
+            <h2 class="comparison-title">Transformasi Kode</h2>
+            <p class="comparison-subtitle">Analogi: Merapikan lemari file</p>
+        </div>
+        
+        <div class="comparison-cards">
+            <!-- Before Card -->
+            <div class="comparison-card card-before">
+                <div class="card-header">
+                    <span class="card-label label-before">SEBELUM</span>
+                    <h3 class="card-title">Spaghetti Code</h3>
+                </div>
+                <div class="code-preview">
+public function getStatus() {<br/>
+&nbsp;&nbsp;if ($this->status == 0) return "Available";<br/>
+&nbsp;&nbsp;else if ($this->status == 1) return "Borrowed";<br/>
+&nbsp;&nbsp;else if ($this->status == 2) return "Broken";<br/>
+&nbsp;&nbsp;else return "Unknown";<br/>
+}
+                </div>
+            </div>
+            
+            <div class="arrow-down">
+                <i class="fas fa-arrow-down"></i>
+            </div>
+            
+            <!-- After Card -->
+            <div class="comparison-card card-after">
+                <div class="card-header">
+                    <span class="card-label label-after">SESUDAH</span>
+                    <h3 class="card-title">Modular Blocks</h3>
+                </div>
+                <div class="code-preview">
+public function getStatus(): string {<br/>
+&nbsp;&nbsp;return $this->statusMap[$this->status];<br/>
+}<br/>
+// Clean mapping in service class<br/>
+private const statusMap = [<br/>
+&nbsp;&nbsp;0 => 'Available', 1 => 'Borrowed', 2 => 'Broken'<br/>
+];
+                </div>
+            </div>
+        </div>
+        
+        <div class="logo-container">
+            <i class="fas fa-flask logo-icon"></i>
+            <span class="logo-text">STEI ITB</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manfaat & Dampak Positif</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background-color: #F8F9FA;
+    }
+    .slide-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #FFFFFF;
+        font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    
+    /* Header */
+    .header {
+        padding: 4vh 6vw 2vh 6vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .title-group {
+        display: flex;
+        align-items: center;
+    }
+    
+    .accent-bar {
+        width: 5px;
+        height: 6vh;
+        background-color: #42A5F5;
+        margin-right: 1vw;
+        border-radius: 3px;
+    }
+    
+    .title-en {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-size: 1.8vh;
+        color: #4DB6AC;
+        letter-spacing: 2px;
+        margin-right: 1vw;
+    }
+    
+    .title-cn {
+        font-size: 3.5vh;
+        font-weight: 900;
+        color: #212121;
+        line-height: 1.1;
+    }
+    
+    .impact-badge {
+        background: linear-gradient(135deg, #4CAF50 0%, #43A047 100%);
+        color: #FFFFFF;
+        padding: 1vh 2vw;
+        border-radius: 20px;
+        font-size: 1.4vw;
+        font-weight: 700;
+        letter-spacing: 1px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8vw;
+    }
+    
+    /* Content */
+    .content {
+        flex: 1;
+        padding: 2vh 6vw 4vh 6vw;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2vw;
+    }
+    
+    .benefit-card {
+        background-color: #FFFFFF;
+        border-radius: 16px;
+        padding: 2.5vh 2vw;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        border: 2px solid #F5F5F5;
+        transition: all 0.3s ease;
+    }
+    
+    .benefit-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(66, 165, 245, 0.15);
+    }
+    
+    .benefit-icon {
+        width: 5vw;
+        height: 5vw;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5vh;
+        font-size: 2.5vw;
+    }
+    
+    .efficiency .benefit-icon { background: linear-gradient(135deg, #42A5F5 0%, #1976D2 100%); color: #FFFFFF; }
+    .quality .benefit-icon { background: linear-gradient(135deg, #4CAF50 0%, #43A047 100%); color: #FFFFFF; }
+    .security .benefit-icon { background: linear-gradient(135deg, #EF5350 0%, #E53935 100%); color: #FFFFFF; }
+    .productivity .benefit-icon { background: linear-gradient(135deg, #FFA726 0%, #FF9800 100%); color: #FFFFFF; }
+    .integrity .benefit-icon { background: linear-gradient(135deg, #AB47BC 0%, #9C27B0 100%); color: #FFFFFF; }
+    .ux .benefit-icon { background: linear-gradient(135deg, #26C6DA 0%, #00BCD4 100%); color: #FFFFFF; }
+    .transparency .benefit-icon { background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%); color: #FFFFFF; }
+    
+    .benefit-title {
+        font-size: 1.6vw;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 1vh;
+        text-align: center;
+    }
+    
+    .benefit-desc {
+        font-size: 1.2vw;
+        color: #616161;
+        line-height: 1.4;
+        text-align: center;
+        padding: 0 0.5vw;
+    }
+    
+    /* Decor */
+    .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 0;
+    }
+    
+    .circle-1 {
+        width: 35vw;
+        height: 35vw;
+        background-color: #E3F2FD;
+        top: -8vw;
+        right: -8vw;
+        opacity: 0.5;
+    }
+    
+    .circle-2 {
+        width: 20vw;
+        height: 20vw;
+        background-color: #E0F2F1;
+        bottom: -5vw;
+        left: 5vw;
+        opacity: 0.3;
+    }
+    
+    /* Logo */
+    .logo-container {
+        position: absolute;
+        bottom: 3vh;
+        right: 4vw;
+        display: flex;
+        align-items: center;
+        gap: 1vw;
+        z-index: 20;
+    }
+    .logo-icon {
+        color: #42A5F5;
+        font-size: 1.5vw;
+    }
+    .logo-text {
+        font-size: 1.2vw;
+        font-weight: 700;
+        color: #9E9E9E;
+        letter-spacing: 1px;
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <!-- Decor -->
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+    
+    <!-- Header -->
+    <div class="header">
+        <div class="title-group">
+            <div class="accent-bar"></div>
+            <div>
+                <p class="title-en">IMPACT & BENEFITS</p>
+                <h1 class="title-cn">Manfaat & Dampak Positif</h1>
+            </div>
+        </div>
+        <div class="impact-badge">
+            <i class="fas fa-star"></i>
+            <span>IMPACT MAXIMIZED</span>
+        </div>
+    </div>
+    
+    <!-- Content -->
+    <div class="content">
+        <div class="benefits-grid">
+            <!-- Efficiency -->
+            <div class="benefit-card efficiency">
+                <div class="benefit-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="benefit-title">Efficiency</div>
+                <div class="benefit-desc">Process 10x lebih cepat</div>
+            </div>
+            
+            <!-- Quality -->
+            <div class="benefit-card quality">
+                <div class="benefit-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="benefit-title">Quality</div>
+                <div class="benefit-desc">122/122 test PASSED</div>
+            </div>
+            
+            <!-- Security -->
+            <div class="benefit-card security">
+                <div class="benefit-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="benefit-title">Security</div>
+                <div class="benefit-desc">7 security bugs fixed</div>
+            </div>
+            
+            <!-- Productivity -->
+            <div class="benefit-card productivity">
+                <div class="benefit-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div class="benefit-title">Productivity</div>
+                <div class="benefit-desc">Onboarding 2 hari → 2 jam</div>
+            </div>
+            
+            <!-- Data Integrity -->
+            <div class="benefit-card integrity">
+                <div class="benefit-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="benefit-title">Data Integrity</div>
+                <div class="benefit-desc">Data 100% sinkron</div>
+            </div>
+            
+            <!-- User Experience -->
+            <div class="benefit-card ux">
+                <div class="benefit-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="benefit-title">User Experience</div>
+                <div class="benefit-desc">Responsive, QR scan</div>
+            </div>
+            
+            <!-- Transparency -->
+            <div class="benefit-card transparency">
+                <div class="benefit-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div class="benefit-title">Transparency</div>
+                <div class="benefit-desc">Activity log penuh</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Logo -->
+    <div class="logo-container">
+        <i class="fas fa-flask logo-icon"></i>
+        <span class="logo-text">STEI ITB</span>
+    </div>
+</div>
+</body>
+</html>

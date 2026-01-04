@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentasi PKL</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: #000; 
+            display: flex; 
+            flex-direction: column; 
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+        }
+        iframe { 
+            flex: 1; 
+            border: none; 
+            width: 100%; 
+        }
+        .controls {
+            height: 60px;
+            background-color: #212121;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 20px;
+        }
+        button {
+            background-color: #42A5F5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        button:hover {
+            background-color: #1976D2;
+        }
+        .slide-counter {
+            color: #BDBDBD;
+            font-size: 18px;
+            font-weight: 500;
+            min-width: 100px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="slideFrame" src="1.html"></iframe>
+    
+    <div class="controls">
+        <button onclick="changeSlide(-1)">◀ Previous</button>
+        <span class="slide-counter" id="counter">Loading...</span>
+        <button onclick="changeSlide(1)">Next ▶</button>
+    </div>
+
+<script>
+    // State Management
+    let validSlides = [];    // Array untuk menyimpan daftar nama file yang ada (contoh: [1, 3, 4, ... 36])
+    let currentIndex = 0;    // Pointer untuk posisi slide saat ini (dimulai dari index 0)
+    const MAX_SEARCH = 60;   // Batas pencarian file
+
+    // 1. Fungsi Cek File (Tetap sama)
+    async function checkFile(filename) {
+        try {
+            const response = await fetch(filename + '.html');
+            return response.ok; 
+        } catch (error) {
+            return false;
+        }
+    }
+
+    // 2. INITIALIZATION: Mapping semua file yang ada ke dalam Array
+    async function initSlides() {
+        const counterEl = document.getElementById('counter');
+        counterEl.textContent = "Scanning...";
+        
+        validSlides = []; // Reset array
+
+        // Loop scan file 1 sampai 60
+        for (let i = 1; i <= MAX_SEARCH; i++) {
+            const exists = await checkFile(i);
+            if (exists) {
+                validSlides.push(i); // Simpan nomor file ke array jika ada
+            }
+        }
+
+        // Jika tidak ada slide ditemukan
+        if (validSlides.length === 0) {
+            counterEl.textContent = "No Slides Found";
+            return;
+        }
+
+        // Load slide pertama dari daftar valid
+        currentIndex = 0; 
+        loadSlide();
+    }
+
+    // 3. LOAD SLIDE: Berdasarkan Index Array, bukan Nama File langsung
+    function loadSlide() {
+        if (validSlides.length === 0) return;
+
+        // Ambil nama file dari array berdasarkan pointer currentIndex
+        const fileName = validSlides[currentIndex]; 
+        
+        // Update Iframe
+        document.getElementById('slideFrame').src = fileName + '.html';
+        
+        // Update Counter
+        // Tampilan: (Urutan + 1) / (Total Slide yang Valid)
+        // Contoh: Slide ke-35 (walau nama filenya 36) dari total 35 slide.
+        document.getElementById('counter').textContent = (currentIndex + 1) + ' / ' + validSlides.length;
+    }
+
+    // 4. NAVIGATION: Geser Index, bukan tebak nama file
+    function changeSlide(direction) {
+        // Hitung target index baru
+        let newIndex = currentIndex + direction;
+
+        // Validasi batas (Boundary Check)
+        // Mencegah index kurang dari 0 atau melebihi jumlah array
+        if (newIndex >= 0 && newIndex < validSlides.length) {
+            currentIndex = newIndex;
+            loadSlide();
+        }
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', initSlides);
+
+    document.addEventListener('keydown', function(e) {
+        if (validSlides.length === 0) return; // Cegah error jika belum loading
+        if (e.key === 'ArrowRight') changeSlide(1);
+        if (e.key === 'ArrowLeft') changeSlide(-1);
+    });
+</script>
+</body>
+</html>

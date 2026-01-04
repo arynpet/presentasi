@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Transformasi Sistem: Sebelum vs Sesudah</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background-color: #F8F9FA;
+    }
+    .slide-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #FFFFFF;
+        font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+        overflow: hidden;
+        display: flex;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    
+    /* Header */
+    .header {
+        position: absolute;
+        top: 4vh;
+        left: 5vw;
+        right: 5vw;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        gap: 2vw;
+    }
+    .title-en {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-size: 2vh;
+        color: #4DB6AC;
+        letter-spacing: 2px;
+    }
+    .title-cn {
+        font-size: 5vh;
+        font-weight: 900;
+        color: #212121;
+        line-height: 1;
+    }
+    
+    /* Comparison Sections */
+    .comparison-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        position: relative;
+    }
+    
+    .side-panel {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 4vh 4vw;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .before-panel {
+        background: linear-gradient(135deg, #FFF5F5 0%, #FFEBEE 100%);
+        border-right: 1px solid #E0E0E0;
+    }
+    
+    .after-panel {
+        background: linear-gradient(135deg, #F0F7FF 0%, #E3F2FD 100%);
+    }
+    
+    .panel-header {
+        text-align: center;
+        margin-bottom: 3vh;
+    }
+    
+    .panel-badge {
+        display: inline-block;
+        padding: 1vh 2vw;
+        border-radius: 30px;
+        font-size: 2vh;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+    
+    .before-badge {
+        background-color: #EF5350;
+        color: #FFFFFF;
+        box-shadow: 0 4px 10px rgba(239, 83, 80, 0.3);
+    }
+    
+    .after-badge {
+        background-color: #4CAF50;
+        color: #FFFFFF;
+        box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+    }
+    
+    .comparison-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2vh;
+    }
+    
+    .comparison-item {
+        display: flex;
+        align-items: center;
+        background-color: rgba(255,255,255,0.6);
+        border-radius: 10px;
+        padding: 2vh 2.5vw;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.8);
+    }
+    
+    .item-icon {
+        width: 4vw;
+        height: 4vw;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.5vw;
+        flex-shrink: 0;
+        font-size: 2vw;
+    }
+    
+    .before-icon {
+        background-color: #EF5350;
+        color: #FFFFFF;
+    }
+    
+    .after-icon {
+        background-color: #4CAF50;
+        color: #FFFFFF;
+    }
+    
+    .item-text {
+        flex: 1;
+        font-size: 1.5vw;
+        line-height: 1.4;
+    }
+    
+    .item-title {
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 0.3vh;
+    }
+    
+    .item-desc {
+        font-size: 1.3vw;
+        opacity: 0.8;
+    }
+    
+    /* Center Arrow */
+    .arrow-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 6vw;
+        height: 6vw;
+        background-color: #FFFFFF;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 25px rgba(66, 165, 245, 0.2);
+        z-index: 30;
+    }
+    
+    .arrow-icon {
+        font-size: 3vw;
+        color: #42A5F5;
+    }
+    
+    /* Logo */
+    .logo-container {
+        position: absolute;
+        bottom: 3vh;
+        right: 4vw;
+        display: flex;
+        align-items: center;
+        gap: 1vw;
+        z-index: 30;
+    }
+    .logo-icon {
+        color: #42A5F5;
+        font-size: 2vw;
+    }
+    .logo-text {
+        font-size: 1.2vw;
+        font-weight: 700;
+        color: #9E9E9E;
+        letter-spacing: 1px;
+    }
+    
+    /* Decor */
+    .bg-shape {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 0;
+    }
+    
+    .shape-1 {
+        width: 35vw;
+        height: 35vw;
+        background-color: #E3F2FD;
+        top: -10vw;
+        left: -10vw;
+        opacity: 0.5;
+    }
+    
+    .shape-2 {
+        width: 25vw;
+        height: 25vw;
+        border: 30px solid #E0F2F1;
+        bottom: -8vw;
+        right: -8vw;
+        opacity: 0.4;
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <!-- Decor -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    
+    <!-- Header -->
+    <div class="header">
+        <div class="title-en">TRANSFORMASI</div>
+    </div>
+    
+    <!-- Comparison -->
+    <div class="comparison-wrapper">
+        <!-- Before Panel -->
+        <div class="side-panel before-panel">
+            <div class="panel-header">
+                <span class="panel-badge before-badge">SEBELUM</span>
+            </div>
+            <div class="comparison-list">
+                <div class="comparison-item">
+                    <div class="item-icon before-icon"><i class="fas fa-times"></i></div>
+                    <div class="item-text">
+                        <div class="item-title">Data Tersimpan</div>
+                        <div class="item-desc">Hanya di laptop, tidak ada backup</div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="item-icon before-icon"><i class="fas fa-database"></i></div>
+                    <div class="item-text">
+                        <div class="item-title">Data Dummy</div>
+                        <div class="item-desc">Manual copy-paste SQL rawan error</div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="item-icon before-icon"><i class="fas fa-file-alt"></i></div>
+                    <div class="item-text">
+                        <div class="item-title">Dokumentasi</div>
+                        <div class="item-desc">Tidak ada README atau panduan</div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="item-icon before-icon"><i class="fas fa-tools"></i></div>
+                    <div class="item-text">
+                        <div class="item-title">Fitur & Kode</div>
+                        <div class="item-desc">Tidak selesai, kode berantakan</div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="item-icon before-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="item-text">
+                        <div class="item-title">Keamanan</div>
+                        <div class="item-desc">Tanpa security fixes atau testing</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Center Arrow -->
+        <div class="arrow-container">
+            <i class="fas fa-arrow-right arrow-icon"></i>
+        </div>
+        
+        <!-- After Panel -->
+        <div class="side-panel after-panel">
+            <div class="panel-header">
+                <span class="panel-badge after-badge">SESUDAH</span>
+            </div>
+            <div class="comparison-list">
+                <div class="comparison-item">
+                    <div class="item-icon after-icon"><i class="fab fa-github"></i></div>
+                    <div class="item-text">
+                        <div class="item-title">Data Tersimpan</div>
+                        <div class="item-desc">GitHub backup 50+ commits</div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="item-icon after-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="item-text">
+                        <div class="item-title">Data Dummy</div>
+                        <div class="item-desc">Laravel Seeder 1 command instant</div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="item-icon after-icon"><i class="fas fa-book-open"></i></div>
+                    <div class="item-text">
+                        <div class="item-title">Dokumentasi</div>
+                        <div class="item-desc">README.md lengkap & struktural</div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="item-icon after-icon"><i class="fas fa-cubes"></i></div>
+                    <div class="item-text">
+                        <div class="item-title">Fitur & Kode</div>
+                        <div class="item-desc">QR code + fitur baru, clean code</div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="item-icon after-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="item-text">
+                        <div class="item-title">Keamanan</div>
+                        <div class="item-desc">7 security fixes, 122 test cases passed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Logo -->
+    <div class="logo-container">
+        <i class="fas fa-flask logo-icon"></i>
+        <span class="logo-text">STEI ITB</span>
+    </div>
+</div>
+</body>
+</html>

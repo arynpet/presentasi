@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kondisi Sistem Sebelum Perbaikan</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: #F8F9FA;
+    }
+    .slide-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #FFFFFF;
+        font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+        overflow: hidden;
+        display: flex;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    
+    /* Left Section */
+    .left-section {
+        width: 50%;
+        height: 100%;
+        background-color: #FFFFFF;
+        padding: 60px 50px 60px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .title-container {
+        display: flex;
+        margin-bottom: 30px;
+    }
+    
+    .accent-bar {
+        width: 6px;
+        background-color: #EF5350; /* Merah untuk problem */
+        margin-right: 25px;
+        height: 80px;
+        align-self: flex-start;
+        border-radius: 3px;
+    }
+    
+    .title-group {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .title-en {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-size: 18px;
+        color: #4DB6AC; /* Mint green */
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+    
+    .title-cn {
+        font-size: 46px;
+        font-weight: 900;
+        color: #212121;
+        line-height: 1.1;
+    }
+    
+    .problem-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .problem-item {
+        display: flex;
+        align-items: flex-start;
+    }
+    
+    .problem-icon-box {
+        min-width: 40px;
+        height: 40px;
+        background-color: #FFEBEE;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        margin-top: 2px;
+    }
+    
+    .problem-icon {
+        color: #EF5350;
+        font-size: 18px;
+    }
+    
+    .problem-content h4 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 4px;
+    }
+    
+    .problem-content p {
+        font-size: 14px;
+        color: #757575;
+        line-height: 1.5;
+    }
+    
+    /* Right Section */
+    .right-section {
+        width: 50%;
+        height: 100%;
+        background-color: #FFF8E1; /* Light yellow untuk risiko */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px 80px 60px 60px;
+        position: relative;
+    }
+    
+    .risk-list {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    .risk-item {
+        display: flex;
+        align-items: flex-start;
+        position: relative;
+        padding-left: 20px;
+    }
+    
+    .risk-item::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 10px;
+        width: 8px;
+        height: 8px;
+        background-color: #FFA726;
+        border-radius: 50%;
+    }
+    
+    .risk-content h4 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .risk-icon {
+        color: #FFA726;
+        font-size: 18px;
+    }
+    
+    .risk-content p {
+        font-size: 15px;
+        color: #616161;
+        line-height: 1.6;
+        margin: 0;
+    }
+    
+    /* Decor */
+    .bg-shape {
+        position: absolute;
+        z-index: 0;
+    }
+    
+    .shape-1 {
+        width: 300px;
+        height: 300px;
+        background-color: #FFEBEE;
+        border-radius: 50%;
+        top: -50px;
+        right: -50px;
+        opacity: 0.6;
+    }
+    
+    .shape-2 {
+        width: 200px;
+        height: 200px;
+        border: 2px solid #FFE082;
+        border-radius: 50%;
+        bottom: 50px;
+        left: 60px;
+        opacity: 0.4;
+    }
+    
+    .logo-container {
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 20;
+    }
+    .logo-icon {
+        color: #42A5F5;
+        font-size: 16px;
+    }
+    .logo-text {
+        font-size: 12px;
+        font-weight: 700;
+        color: #757575;
+        letter-spacing: 1px;
+    }
+    
+    .comparison-box {
+        background-color: #FFFFFF;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    
+    .comparison-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #9E9E9E;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+    }
+    
+    .comparison-content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .before-item {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .before-label {
+        font-size: 13px;
+        color: #EF5350;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+    
+    .before-icon {
+        font-size: 24px;
+        color: #EF5350;
+    }
+    
+    .arrow {
+        color: #BDBDBD;
+        font-size: 20px;
+    }
+    
+    .after-item {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .after-label {
+        font-size: 13px;
+        color: #4DB6AC;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+    
+    .after-icon {
+        font-size: 24px;
+        color: #4DB6AC;
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Left Section -->
+<div class="left-section">
+<div class="title-container">
+<div class="accent-bar"></div>
+<div class="title-group">
+<p class="title-en">BEFORE</p>
+<h1 class="title-cn">Situasi Awal</h1>
+</div>
+</div>
+<div class="problem-list">
+<!-- Problem 1 -->
+<div class="problem-item">
+<div class="problem-icon-box">
+<i class="fas fa-laptop problem-icon"></i>
+</div>
+<div class="problem-content">
+<h4>Hanya di Laptop Satu</h4>
+<p>Kode hanya tersimpan di laptop teman PKL sebelumnya</p>
+</div>
+</div>
+<!-- Problem 2 -->
+<div class="problem-item">
+<div class="problem-icon-box">
+<i class="fab fa-github problem-icon"></i>
+</div>
+<div class="problem-content">
+<h4>Tidak di GitHub</h4>
+<p>Tidak ada backup online & version control</p>
+</div>
+</div>
+<!-- Problem 3 -->
+<div class="problem-item">
+<div class="problem-icon-box">
+<i class="fas fa-file-alt problem-icon"></i>
+</div>
+<div class="problem-content">
+<h4>Tidak Ada Dokumentasi</h4>
+<p>Tidak ada panduan cara menjalankan sistem</p>
+</div>
+</div>
+<!-- Problem 4 -->
+<div class="problem-item">
+<div class="problem-icon-box">
+<i class="fas fa-bug problem-icon"></i>
+</div>
+<div class="problem-content">
+<h4>Fitur Belum Selesai</h4>
+<p>Beberapa fitur masih buggy & belum lengkap</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Right Section -->
+<div class="right-section">
+<div class="bg-shape shape-1"></div>
+<div class="bg-shape shape-2"></div>
+
+<h2 style="font-size: 20px; font-weight: 700; color: #424242; margin-bottom: 25px; display: flex; align-items: center; gap: 10px;">
+<i class="fas fa-exclamation-triangle" style="color: #FFA726;"></i>
+Risiko yang Dihadapi
+</h2>
+
+<div class="risk-list">
+<!-- Risk 1 -->
+<div class="risk-item">
+<div class="risk-content">
+<h4>
+<i class="fas fa-laptop risk-icon"></i>
+Kehilangan Data
+</h4>
+<p>Jika laptop rusak/hilang → semua kode hilang selamanya</p>
+</div>
+</div>
+<!-- Risk 2 -->
+<div class="risk-item">
+<div class="risk-content">
+<h4>
+<i class="fas fa-users risk-icon"></i>
+Sulit Dilanjutkan
+</h4>
+<p>Mahasiswa berikutnya tidak bisa melanjutkan project</p>
+</div>
+</div>
+<!-- Risk 3 -->
+<div class="risk-item">
+<div class="risk-content">
+<h4>
+<i class="fas fa-database risk-icon"></i>
+Tidak Ada Standar
+</h4>
+<p>Tidak ada pengelolaan data yang terstruktur & konsisten</p>
+</div>
+</div>
+</div>
+
+<div class="comparison-box">
+<p class="comparison-title">Transformasi</p>
+<div class="comparison-content">
+<div class="before-item">
+<div class="before-label">SEBELUM</div>
+<i class="fas fa-laptop before-icon"></i>
+</div>
+<div class="arrow">
+<i class="fas fa-arrow-right"></i>
+</div>
+<div class="after-item">
+<div class="after-label">SESUDAH</div>
+<i class="fab fa-github after-icon"></i>
+</div>
+</div>
+</div>
+
+<div class="logo-container">
+<i class="fas fa-flask logo-icon"></i>
+<span class="logo-text">STEI ITB</span>
+</div>
+</div>
+</div>
+</body>
+</html>

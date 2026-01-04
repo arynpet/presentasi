@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fitur Baru: Tracking Stok Material Otomatis</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: #F8F9FA;
+    }
+    .slide-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #FFFFFF;
+        font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+        overflow: hidden;
+        display: flex;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    
+    /* Left Section */
+    .left-section {
+        width: 50%;
+        height: 100%;
+        background-color: #FFFFFF;
+        padding: 60px 50px 60px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .title-container {
+        display: flex;
+        margin-bottom: 30px;
+    }
+    
+    .accent-bar {
+        width: 6px;
+        background-color: #42A5F5;
+        margin-right: 25px;
+        height: 80px;
+        align-self: flex-start;
+        border-radius: 3px;
+    }
+    
+    .title-group {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .title-en {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-size: 18px;
+        color: #4DB6AC;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+    
+    .title-cn {
+        font-size: 46px;
+        font-weight: 900;
+        color: #212121;
+        line-height: 1.1;
+    }
+    
+    .feature-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .feature-item {
+        display: flex;
+        align-items: flex-start;
+    }
+    
+    .feature-icon-box {
+        min-width: 40px;
+        height: 40px;
+        background-color: #E3F2FD;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        margin-top: 2px;
+    }
+    
+    .feature-icon {
+        color: #42A5F5;
+        font-size: 18px;
+    }
+    
+    .feature-content h4 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 4px;
+    }
+    
+    .feature-content p {
+        font-size: 14px;
+        color: #757575;
+        line-height: 1.5;
+    }
+    
+    /* Right Section */
+    .right-section {
+        width: 50%;
+        height: 100%;
+        background-color: #F0F7FF;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px 80px 60px 60px;
+        position: relative;
+    }
+    
+    .stock-container {
+        background-color: #FFFFFF;
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(66, 165, 245, 0.1);
+        margin-bottom: 25px;
+    }
+    
+    .stock-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .stock-bars {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .stock-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .stock-label {
+        min-width: 80px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #546E7A;
+    }
+    
+    .stock-bar-container {
+        flex: 1;
+        height: 24px;
+        background-color: #F5F5F5;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .stock-bar {
+        height: 100%;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 10px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #FFFFFF;
+        transition: width 0.5s ease;
+    }
+    
+    .stock-green {
+        background: linear-gradient(90deg, #4CAF50, #45A049);
+    }
+    
+    .stock-yellow {
+        background: linear-gradient(90deg, #FFC107, #FF9800);
+        color: #333333;
+    }
+    
+    .stock-red {
+        background: linear-gradient(90deg, #EF5350, #F44336);
+    }
+    
+    .status-icon {
+        min-width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: #FFFFFF;
+    }
+    
+    /* Info Box */
+    .info-box {
+        background: linear-gradient(135deg, #42A5F5 0%, #1976D2 100%);
+        border-radius: 16px;
+        padding: 20px;
+        color: #FFFFFF;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .info-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.3;
+    }
+    
+    .info-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    
+    .info-item {
+        background-color: rgba(255,255,255,0.15);
+        border-radius: 8px;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+    }
+    
+    .logo-container {
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 20;
+    }
+    .logo-icon {
+        color: #42A5F5;
+        font-size: 16px;
+    }
+    .logo-text {
+        font-size: 12px;
+        font-weight: 700;
+        color: #9E9E9E;
+        letter-spacing: 1px;
+    }
+    
+    /* Decor */
+    .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 0;
+    }
+    
+    .circle-1 {
+        width: 300px;
+        height: 300px;
+        background-color: #E3F2FD;
+        top: -50px;
+        right: -50px;
+        opacity: 0.6;
+    }
+    
+    .circle-2 {
+        width: 150px;
+        height: 150px;
+        border: 20px solid #E0F2F1;
+        bottom: 50px;
+        left: 60px;
+        opacity: 0.4;
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <!-- Left Section -->
+    <div class="left-section">
+        <div class="title-container">
+            <div class="accent-bar"></div>
+            <div class="title-group">
+                <p class="title-en">STOCK MANAGEMENT</p>
+                <h1 class="title-cn">Tracking Stok<br/>Material Otomatis</h1>
+            </div>
+        </div>
+        
+        <div class="feature-list">
+            <!-- Feature 1 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-cube feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Pencatatan Stok</h4>
+                    <p>Sistem manajemen stok filament/resin untuk printer 3D</p>
+                </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-cut feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Auto-Deduct</h4>
+                    <p>Otomatis potong stok saat ada job printing</p>
+                </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-bell feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Notifikasi Threshold</h4>
+                    <p>Alert otomatis jika stok menipis</p>
+                </div>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Data Real-time</h4>
+                    <p>Tracking berapa gram material tersisa</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        
+        <!-- Stock Level Visualization -->
+        <div class="stock-container">
+            <h2 class="stock-title">
+                <i class="fas fa-chart-bar"></i>
+                Level Stok Material
+            </h2>
+            <div class="stock-bars">
+                <!-- Item 1: Green -->
+                <div class="stock-item">
+                    <span class="stock-label">PLA Hitam</span>
+                    <div class="stock-bar-container">
+                        <div class="stock-bar stock-green" style="width: 85%;">850g</div>
+                    </div>
+                    <div class="status-icon" style="background-color: #4CAF50;">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <!-- Item 2: Yellow -->
+                <div class="stock-item">
+                    <span class="stock-label">ABS Putih</span>
+                    <div class="stock-bar-container">
+                        <div class="stock-bar stock-yellow" style="width: 35%;">350g</div>
+                    </div>
+                    <div class="status-icon" style="background-color: #FFC107; color: #333;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                </div>
+                
+                <!-- Item 3: Red -->
+                <div class="stock-item">
+                    <span class="stock-label">PETG Blue</span>
+                    <div class="stock-bar-container">
+                        <div class="stock-bar stock-red" style="width: 15%;">150g</div>
+                    </div>
+                    <div class="status-icon" style="background-color: #EF5350;">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Info Box -->
+        <div class="info-box">
+            <h2 class="info-title">
+                <i class="fas fa-lightbulb"></i>
+                Dampak Positif
+            </h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Prediksi pesan material</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Tidak ada job gagal</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Data real-time</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-coins"></i>
+                    <span>Hemat biaya material</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logo-container">
+            <i class="fas fa-flask logo-icon"></i>
+            <span class="logo-text">STEI ITB</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

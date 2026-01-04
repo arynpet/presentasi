@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tantangan & Pembelajaran</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background-color: #F8F9FA;
+    }
+    .slide-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #FFFFFF;
+        font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+        overflow: hidden;
+        display: flex;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    
+    /* Header */
+    .header {
+        padding: 4vh 6vw 2vh 6vw;
+        display: flex;
+        align-items: flex-start;
+        position: relative;
+        z-index: 10;
+    }
+    .accent-bar {
+        width: 6px;
+        height: 8vh;
+        background-color: #42A5F5;
+        margin-right: 1.5vw;
+        align-self: flex-start;
+        border-radius: 3px;
+    }
+    .title-group {
+        display: flex;
+        flex-direction: column;
+    }
+    .title-en {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-size: 1.5vh;
+        color: #4DB6AC;
+        letter-spacing: 2px;
+        margin-bottom: 0.5vh;
+    }
+    .title-cn {
+        font-size: 4.5vh;
+        font-weight: 900;
+        color: #212121;
+        line-height: 1.1;
+    }
+    
+    /* Content */
+    .content {
+        flex: 1;
+        padding: 2vh 6vw 5vh 6vw;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3vw;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .section-box {
+        background-color: #F8F9FA;
+        border-radius: 16px;
+        padding: 3vh;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .section-box.challenges {
+        background-color: #FFEBEE;
+        border: 2px solid #FFCDD2;
+    }
+    
+    .section-box.learning {
+        background-color: #E8F5E9;
+        border: 2px solid #C8E6C9;
+    }
+    
+    .section-title {
+        font-size: 2vh;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 2vh;
+        display: flex;
+        align-items: center;
+        gap: 1vw;
+    }
+    
+    .section-icon {
+        width: 4vw;
+        height: 4vw;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2vw;
+    }
+    
+    .challenges .section-icon {
+        background-color: #EF5350;
+        color: #FFFFFF;
+    }
+    
+    .learning .section-icon {
+        background-color: #4CAF50;
+        color: #FFFFFF;
+    }
+    
+    .list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5vh;
+        flex: 1;
+    }
+    
+    .list-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1vw;
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        padding: 1.5vh 2vw;
+        font-size: 1.4vw;
+        line-height: 1.4;
+    }
+    
+    .list-item i {
+        margin-top: 0.4vh;
+        flex-shrink: 0;
+    }
+    
+    .challenges .list-item i {
+        color: #EF5350;
+    }
+    
+    .learning .list-item i {
+        color: #4CAF50;
+    }
+    
+    /* Logo */
+    .logo-container {
+        position: absolute;
+        bottom: 3vh;
+        right: 4vw;
+        display: flex;
+        align-items: center;
+        gap: 1vw;
+        z-index: 20;
+    }
+    .logo-icon {
+        color: #42A5F5;
+        font-size: 1.5vw;
+    }
+    .logo-text {
+        font-size: 1.2vw;
+        font-weight: 700;
+        color: #9E9E9E;
+        letter-spacing: 1px;
+    }
+    
+    /* Decor */
+    .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 0;
+    }
+    
+    .circle-1 {
+        width: 30vw;
+        height: 30vw;
+        background-color: #E3F2FD;
+        top: -8vw;
+        right: -5vw;
+        opacity: 0.4;
+    }
+    
+    .circle-2 {
+        width: 20vw;
+        height: 20vw;
+        background-color: #E0F2F1;
+        bottom: -5vw;
+        left: 5vw;
+        opacity: 0.3;
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <!-- Decor -->
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+    
+    <!-- Header -->
+    <div class="header">
+        <div class="accent-bar"></div>
+        <div class="title-group">
+            <p class="title-en">CHALLENGES & LEARNING</p>
+            <h1 class="title-cn">Tantangan & Pembelajaran</h1>
+        </div>
+    </div>
+    
+    <!-- Content -->
+    <div class="content">
+        <!-- Challenges -->
+        <div class="section-box challenges">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-mountain"></i>
+                </div>
+                <span>Tantangan</span>
+            </div>
+            <div class="list">
+                <div class="list-item">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Memahami kode orang lain yang belum familiar</span>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-bug"></i>
+                    <span>Memperbaiki bug legacy yang sudah kompleks</span>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-balance-scale"></i>
+                    <span>Balance antara fitur baru dan kualitas kode</span>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Waktu terbatas hanya 2 minggu untuk banyak perbaikan</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Learning -->
+        <div class="section-box learning">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <span>Pembelajaran</span>
+            </div>
+            <div class="list">
+                <div class="list-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Version control yang baik dengan Git & GitHub</span>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-vial"></i>
+                    <span>Pentingnya testing yang komprehensif</span>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Security awareness dalam setiap development</span>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-comments"></i>
+                    <span>Komunikasi dengan stakeholder untuk requirement</span>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-book"></i>
+                    <span>Dokumentasi kunci untuk maintainability</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Logo -->
+    <div class="logo-container">
+        <i class="fas fa-flask logo-icon"></i>
+        <span class="logo-text">STEI ITB</span>
+    </div>
+</div>
+</body>
+</html>

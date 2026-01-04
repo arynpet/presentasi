@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Automasi Data Dummy untuk Testing</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: #F8F9FA;
+    }
+    .slide-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #FFFFFF;
+        font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+        overflow: hidden;
+        display: flex;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    
+    /* Left Section */
+    .left-section {
+        width: 50%;
+        height: 100%;
+        background-color: #FFFFFF;
+        padding: 60px 50px 60px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .title-container {
+        display: flex;
+        margin-bottom: 30px;
+    }
+    
+    .accent-bar {
+        width: 6px;
+        background-color: #42A5F5;
+        margin-right: 25px;
+        height: 80px;
+        align-self: flex-start;
+        border-radius: 3px;
+    }
+    
+    .title-group {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .title-en {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-size: 18px;
+        color: #4DB6AC;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+    
+    .title-cn {
+        font-size: 46px;
+        font-weight: 900;
+        color: #212121;
+        line-height: 1.1;
+    }
+    
+    .feature-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .feature-item {
+        display: flex;
+        align-items: flex-start;
+    }
+    
+    .feature-icon-box {
+        min-width: 40px;
+        height: 40px;
+        background-color: #E3F2FD;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        margin-top: 2px;
+    }
+    
+    .feature-icon {
+        color: #42A5F5;
+        font-size: 18px;
+    }
+    
+    .feature-content h4 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 4px;
+    }
+    
+    .feature-content p {
+        font-size: 14px;
+        color: #757575;
+        line-height: 1.5;
+    }
+    
+    /* Right Section */
+    .right-section {
+        width: 50%;
+        height: 100%;
+        background-color: #F0F7FF;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px 80px 60px 60px;
+        position: relative;
+    }
+    
+    .flow-container {
+        background-color: #FFFFFF;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(66, 165, 245, 0.1);
+        margin-bottom: 25px;
+    }
+    
+    .flow-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #424242;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .flow-steps {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    
+    .flow-step {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .step-box {
+        background-color: #F5F5F5;
+        border-radius: 12px;
+        padding: 15px;
+        border: 2px solid #E0E0E0;
+    }
+    
+    .step-icon {
+        font-size: 24px;
+        color: #9E9E9E;
+        margin-bottom: 8px;
+    }
+    
+    .step-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #546E7A;
+        margin-bottom: 5px;
+    }
+    
+    .step-value {
+        font-size: 16px;
+        font-weight: 700;
+        color: #424242;
+    }
+    
+    .step-box.new-way {
+        border-color: #42A5F5;
+        background-color: #E3F2FD;
+    }
+    
+    .step-box.new-way .step-icon {
+        color: #42A5F5;
+    }
+    
+    .step-box.new-way .step-value {
+        color: #1976D2;
+    }
+    
+    .arrow-down {
+        color: #BDBDBD;
+        font-size: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    /* Terminal Box */
+    .terminal-container {
+        background: linear-gradient(135deg, #1E1E1E 0%, #2D2D2D 100%);
+        border-radius: 12px;
+        padding: 20px;
+        color: #00FF00;
+        font-family: 'Courier New', monospace;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .terminal-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #444;
+    }
+    
+    .terminal-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+    
+    .dot-red {
+        background-color: #FF5252;
+    }
+    
+    .dot-yellow {
+        background-color: #FFD740;
+    }
+    
+    .dot-green {
+        background-color: #69F0AE;
+    }
+    
+    .terminal-title {
+        font-size: 12px;
+        color: #BDBDBD;
+        margin-left: 5px;
+    }
+    
+    .terminal-command {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+    
+    .terminal-prompt {
+        color: #42A5F5;
+    }
+    
+    .terminal-success {
+        color: #4CAF50;
+        font-weight: 700;
+        margin-top: 8px;
+    }
+    
+    .logo-container {
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 20;
+    }
+    .logo-icon {
+        color: #42A5F5;
+        font-size: 16px;
+    }
+    .logo-text {
+        font-size: 12px;
+        font-weight: 700;
+        color: #9E9E9E;
+        letter-spacing: 1px;
+    }
+    
+    /* Decor */
+    .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 0;
+    }
+    
+    .circle-1 {
+        width: 300px;
+        height: 300px;
+        background-color: #E3F2FD;
+        top: -50px;
+        right: -50px;
+        opacity: 0.6;
+    }
+    
+    .circle-2 {
+        width: 150px;
+        height: 150px;
+        border: 20px solid #E0F2F1;
+        bottom: 50px;
+        left: 60px;
+        opacity: 0.4;
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <!-- Left Section -->
+    <div class="left-section">
+        <div class="title-container">
+            <div class="accent-bar"></div>
+            <div class="title-group">
+                <p class="title-en">DATA SEEDING</p>
+                <h1 class="title-cn">Automasi Data Dummy<br/>untuk Testing</h1>
+            </div>
+        </div>
+        
+        <div class="feature-list">
+            <!-- Feature 1 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-exchange-alt feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Migrasi Seeder</h4>
+                    <p>SQL mentah → Laravel Seeder class</p>
+                </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-robot feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Script Otomatis</h4>
+                    <p>Isi database dengan data contoh</p>
+                </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-terminal feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>1 Command Reset</h4>
+                    <p>Bisa reset & re-seed dengan 1 perintah</p>
+                </div>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="fas fa-bug feature-icon"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Data Bersih</h4>
+                    <p>Testing butuh data clean setiap kali</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        
+        <!-- Comparison Flow -->
+        <div class="flow-container">
+            <h2 class="flow-title">
+                <i class="fas fa-chart-line"></i>
+                Sebelum vs Sesudah
+            </h2>
+            <div class="flow-steps">
+                <!-- Before -->
+                <div class="flow-step">
+                    <div class="step-box">
+                        <div class="step-icon">
+                            <i class="fas fa-file-code"></i>
+                        </div>
+                        <div class="step-label">OLD WAY</div>
+                        <div class="step-value">Copy-paste SQL</div>
+                    </div>
+                </div>
+                
+                <div class="arrow-down">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                
+                <!-- After -->
+                <div class="flow-step">
+                    <div class="step-box new-way">
+                        <div class="step-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <div class="step-label">NEW WAY</div>
+                        <div class="step-value">1 Command</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Terminal -->
+        <div class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-dot dot-red"></div>
+                <div class="terminal-dot dot-yellow"></div>
+                <div class="terminal-dot dot-green"></div>
+                <div class="terminal-title">Terminal - Laravel Seeder</div>
+            </div>
+            <div class="terminal-command">
+                <div class="terminal-prompt">$ php artisan db:seed</div>
+                <div class="terminal-success">✓ Seeding: BarangTableSeeder</div>
+                <div class="terminal-success">✓ Seeding: UserTableSeeder</div>
+                <div class="terminal-success">✓ Seeding: PeminjamanTableSeeder</div>
+                <div class="terminal-success" style="margin-top: 8px;">🎉 Database seeded successfully!</div>
+                <div class="terminal-success" style="margin-top: 4px;">⏱️ 10 detik</div>
+            </div>
+        </div>
+        
+        <div class="logo-container">
+            <i class="fas fa-flask logo-icon"></i>
+            <span class="logo-text">STEI ITB</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
